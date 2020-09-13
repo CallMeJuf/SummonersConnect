@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="sc" ng-cloak>
+
+<head>
+  <style>
+    [ng\:cloak], [ng-cloak], .ng-cloak {
+      display: none;
+    }
+    </style>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Summoners Connect</title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-90455434-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-90455434-1');
+  </script>
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+  <!-- Custom styles for this template -->
+  <link href="/css/site.css" rel="stylesheet">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+          aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/" onclick="location.reload()">Summoners Connect</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+  </nav>
+
+
+  <div class="container">
+    <form ng-controller="inputForm" ng-submit="getTableData(summoner1Name,summoner2Name,servers.selectedServer)">
+      <!-- Main Div -->
+      <div class="main-div well">
+        <!-- title header -->
+        <h1>Find Games Between Two Summoners</h1>
+
+        <!--User Input -->
+        <div class="row">
+
+
+          <!-- Summoner 1 -->
+          <div class="col-md-5 summoner-row">
+            <input type="text" id="s1" class="form-control" placeholder="Summoner 1" value="{{summoner1Name}}" tabindex="1"
+              ng-model='summoner1Name'>
+            <span ng-show="summoner1Updated">Last Updated:
+              <ng-template ng-if="isNumber(summoner1Updated)">{{summoner1Updated| date :'short'}}</ng-template>
+              <ng-template ng-if="!isNumber(summoner1Updated)"> {{summoner1Updated}}</ng-template>
+            </span>
+          </div>
+
+          <!-- ServerSelect -->
+          <div class="col-md-2 summoner-row">
+            <center>
+              <ng-include src="getServerList()" />
+            </center>
+          </div>
+
+          <!-- Summoner 2 -->
+          <div class="col-md-5 summoner-row">
+            <input type="text" id="s2" class="form-control" placeholder="Summoner 2" value="{{summoner2Name}}" tabindex="1"
+              ng-model='summoner2Name'>
+            <span ng-show="summoner2Updated">Last Updated:
+              <ng-template ng-if="isNumber(summoner2Updated)">{{summoner2Updated| date :'short'}}</ng-template>
+              <ng-template ng-if="!isNumber(summoner2Updated)">{{summoner2Updated}}</ng-template>
+            </span>
+          </div>
+
+        </div>
+        <!--Submit & Update Button-->
+        <div class="row">
+          <div class="col-md-2 col-md-offset-5" id="buttonsDiv">
+
+            <input class="btn btn-primary" id="searchButton" type="submit" value="Search" tabindex="4">
+
+            <ng-include src="getUpdateButton()" />
+          </div>
+        </div>
+    </form>
+  </div>
+
+
+  <span ng-controller="compareTable" ng-show="tableData.data || tableData.error">
+    <ng-include src="getCompareTable()" />
+  </span>
+
+
+  </div><!-- /.container -->
+
+
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <!-- Load the AngularJS library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>

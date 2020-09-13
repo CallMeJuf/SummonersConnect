@@ -1,0 +1,35 @@
+
+<div class="compare-table-div well">
+<table class="table">
+    <tr>
+        <th class="col-md-2" ng-click="sortBy('summoner1ChampName')">Champion</th>
+        <th class="col-md-3" ng-click="sortBy('timestamp')">Date</th>
+        <th class="col-md-2" ng-click="sortBy('gameId')">Match ID</th>
+        <th class="col-md-3" ng-click="sortBy('gameType')">Queue Type</th>
+        <th class="col-md-2" ng-click="sortBy('summoner2ChampName')">Champion</th>
+    </tr>
+    <tr ng-repeat="matchData in tableData.data | orderBy:sortProperty:reverse">
+        <td>
+            <a href="{{tableData.matchURL}}{{matchData.gameId}}/{{matchData.summoner1AccId}}">
+                <img ng-src="{{matchData.summoner1ChampURL}}" alt="{{matchData.summoner1ChampName}}" />
+            </a>
+        </td>
+        <td>
+            {{matchData.localtimestamp}}
+        </td>
+        <td>
+            <a href="{{tableData.matchURL}}{{matchData.gameId}}/0">
+                {{matchData.gameId}}
+            </a>
+        </td>
+        <td>
+            {{matchData.gameType}}
+        </td>
+        <td>
+            <a href="{{tableData.matchURL}}{{matchData.gameId}}/{{matchData.summoner2AccId}}">
+                <img ng-src="{{matchData.summoner2ChampURL}}" alt="{{matchData.summoner2ChampName}}" />
+            </a>
+        </td>
+    </tr>
+</table> 
+</div>

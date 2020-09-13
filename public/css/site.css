@@ -1,0 +1,106 @@
+@import url('//fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,700;1,400&family=Playfair+Display+SC:wght@400;900&display=swap');
+
+body {
+  padding-top: 50px;
+  background-color: #212121 !important;
+}
+
+h1{
+  font-family: "Playfair Display SC", "Georgia", serif !important;
+  margin-bottom: 1em !important;
+}
+
+.main-div {
+  margin-top: 5em;
+  padding: 40px 15px;
+  text-align: center;
+  color: #fff;
+}
+
+.danger-well {
+  background: #f2dede !important;
+  color: #fff;
+
+}
+
+.summoner-row {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+th,
+td {
+  vertical-align: middle;
+  text-align: center !important;
+}
+
+.compare-table-div {
+  overflow-x: auto;
+  color: #fff;
+}
+
+td img {
+  width: 4em;
+  height: 4em;
+}
+
+#server {
+  width: 7em;
+}
+
+#serverDiv{
+  padding: 0;
+}
+
+#buttonsDiv{
+  padding-left: 0px;
+  padding-right: 0px;
+
+}
+#searchButton,
+#updateButton,
+#updatingButton {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.about {
+  text-align: center;
+  font-size: 1.5em;
+}
+
+
+.ritonotice {
+  font-size: 0.5em;
+}
+
+#s1,
+#s2 {
+  text-align: center;
+}
+
+.well {
+  background-image: linear-gradient(to bottom, #212121 0, #212121 100%) !important;
+  border-color: #1f1515 !important;
+}
+
+/* navbar */
+
+.navbar-default {
+  background-image: linear-gradient(to bottom, #212121 0, #212121 100%) !important;
+  border-color: #1f1515 !important;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.open>a {
+  background-image: linear-gradient(to bottom, #292929 0, #292929 100%) !important;
+  border-color: #1f1515 !important;
+}
+
+.sortorder:after {
+  content: '\25b2';
+}
+.sortorder.reverse:after {
+  content: '\25bc';
+}
