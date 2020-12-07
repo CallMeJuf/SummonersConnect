@@ -41,7 +41,7 @@ app.get('/api/:server/:summonerName1-:summonerName2', apiLimiter, async function
     let summoner1 = false;
     let summoner2 = false;
 
-    let update_timelimit = Date.now() - 60 * 60 * 1000;
+    let update_after_timestamp = Date.now() - 15 * 60 * 1000;
     if ( Utils.toSafeName(req.params.summonerName1) == Utils.toSafeName(req.params.summonerName2) ){
         response.error = "Summoners must be different";
         return res.json(response);
@@ -56,8 +56,7 @@ app.get('/api/:server/:summonerName1-:summonerName2', apiLimiter, async function
 
         response.summoner1Date = summoner1 ? summoner1.processedAt : summoner1Queue ? summoner1Queue.created_at : response.summoner1Date;
         response.summoner2Date = summoner2 ? summoner2.processedAt : summoner2Queue ? summoner2Queue.created_at : response.summoner2Date;
-
-        response.update = (summoner1Queue ? summoner1Queue.created_at : 0) < update_timelimit || (summoner2Queue ? summoner1Queue.created_at : 0) < update_timelimit;
+        response.update = response.summoner1Date < update_after_timestamp || response.summoner2Date < update_after_timestamp;
         if ( summoner1 != false && summoner2 != false ){
             response.matches = await summoner1.getMatchListWithSummoner(summoner2);
         }
@@ -99,7 +98,7 @@ app.get('/api/:server/:summonerName1-:summonerName2/update', apiLimiter, async f
 
     if ( !Riot.SERVERS.includes(req.params.server) ) { return res.end("Invalid server."); }
     let conn;
-    let update_timelimit = Date.now() - 60 * 60 * 1000;
+    let update_after_timestamp = Date.now() - 15 * 60 * 1000;
     let updating = [];
     try {
         conn = await Database.pool.getConnection();
@@ -108,11 +107,19 @@ app.get('/api/:server/:summonerName1-:summonerName2/update', apiLimiter, async f
 
         let summoner1 = await Models.SummonerQueue.find({ platformId: req.params.server, name: req.params.summonerName1, transactionConn: conn });
         let summoner2 = await Models.SummonerQueue.find({ platformId: req.params.server, name: req.params.summonerName2, transactionConn: conn });
-        if ( !summoner1 || ( summoner1.created_at < update_timelimit && summoner1.processed_at < update_timelimit ) ){
+        if ( !summoner1 || 
+            ( 
+             summoner1.created_at < update_after_timestamp && summoner1.processed_at < update_after_timestamp 
+            )
+           ){
             updating.push(req.params.summonerName1);
             await Models.SummonerQueue.create({ platformId: req.params.server, name: req.params.summonerName1, transactionConn: conn });
         }
-        if ( !summoner2 || ( summoner2.created_at < update_timelimit && summoner2.processed_at < update_timelimit ) ){
+        if ( !summoner2 || 
+            ( 
+             summoner2.created_at < update_after_timestamp && summoner2.processed_at < update_after_timestamp 
+            )
+           ){
             updating.push(req.params.summonerName2);
             await Models.SummonerQueue.create({ platformId: req.params.server, name: req.params.summonerName2, transactionConn: conn });
         }
