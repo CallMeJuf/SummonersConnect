@@ -1,7 +1,9 @@
 # SummonersConnect
-Basic express website and backend to find matches played between two League of Legends players.
+Basic Express website and backend to find matches played between two League of Legends players.
 
-Example Usage: http://sc.quib.ca
+To start your own server, simply fill out your API Key and database credentials in the `config.js` file. Then run index.js` for the backend processing, and `server.js` for the front-end/api.
+
+Example Implementation: https://sc.quib.ca
 
 ### TODO
 
